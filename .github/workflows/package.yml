@@ -1,0 +1,14 @@
+name: Package exporter
+
+on: push
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+    - uses: actions/setup-go@v4
+    - run: pip install psutil requests
+    - run: go install
+    - run: ls -l /go/bin/prometheus-slurm-exporter
