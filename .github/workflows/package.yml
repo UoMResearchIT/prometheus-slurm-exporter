@@ -1,6 +1,8 @@
 name: Package exporter
 
-on: push
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   release:
