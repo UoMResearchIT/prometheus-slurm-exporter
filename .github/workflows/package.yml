@@ -17,4 +17,7 @@ jobs:
     - uses: actions/setup-go@v4
     - run: pip install psutil requests
     - run: go build
-    - run: ./prometheus-slurm-exporter --help
+    - uses: actions/upload-artifact@v3
+      with:
+        name: prometheus-slurm-exporter-$(git describe --tags)-$(go env GOOS)_$(go env GOARCH)
+        path: ./prometheus-slurm-exporter
