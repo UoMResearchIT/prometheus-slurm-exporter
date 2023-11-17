@@ -12,5 +12,5 @@ jobs:
     - uses: actions/setup-python@v3
     - uses: actions/setup-go@v4
     - run: pip install psutil requests
-    - run: go install
-    - run: ls -l /go/bin/prometheus-slurm-exporter
+    - run: go build
+    - run: find .
