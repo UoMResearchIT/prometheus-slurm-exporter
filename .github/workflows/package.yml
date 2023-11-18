@@ -4,13 +4,16 @@
 
 name: Package exporter
 
-on:
+on: 
   push:
-  workflow_dispatch:
+    tags:
+    - '*'
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
       with:
@@ -31,20 +34,24 @@ jobs:
       with:
         name: ${{ env.ARTIFACT_NAME }}
         path: ./prometheus-slurm-exporter
-    - uses: actions/create-release@v1
-      id: create_release
+    - uses: ncipollo/release-action@v1
       with:
-        draft: false
-        prerelease: false
-        release_name: ${{ env.VERSION }}
-        tag_name: ${{ github.ref }}
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-    - uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./prometheus-slurm-exporter
-        asset_name: ${{ env.ARTIFACT_NAME }}
-        asset_content_type: application/octet-stream
+        artifacts: "${{ env.ARTIFACT_NAME }}"
+
+    # - uses: actions/create-release@v1
+    #   id: create_release
+    #   with:
+    #     draft: false
+    #     prerelease: false
+    #     release_name: ${{ env.VERSION }}
+    #     tag_name: ${{ github.ref }}
+    #   env:
+    #     GITHUB_TOKEN: ${{ github.token }}
+    # - uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ github.token }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: ./prometheus-slurm-exporter
+    #     asset_name: ${{ env.ARTIFACT_NAME }}
+    #     asset_content_type: application/octet-stream
