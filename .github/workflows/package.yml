@@ -28,6 +28,7 @@ jobs:
         GOOS=$(go env GOOS)
         GOARCH=$(go env GOARCH)
         ARTIFACT_NAME="prometheus-slurm-exporter-${VERSION}-${GOOS}_${GOARCH}"
+        cp -a ./prometheus-slurm-exporter $ARTIFACT_NAME
         echo "ARTIFACT_NAME=$(echo $ARTIFACT_NAME)" >> $GITHUB_ENV
         echo "VERSION=$VERSION" >> $GITHUB_ENV
     - uses: actions/upload-artifact@v3
