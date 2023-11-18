@@ -17,10 +17,12 @@ jobs:
     - uses: actions/setup-go@v4
     - run: pip install psutil requests
     - run: go build
-    - run: VERSION=$(git describe --tags --always)
-    - run: GOOS=$(go env GOOS)
-    - run: GOARCH=$(go env GOARCH)
-    - run: export ARTIFACT_NAME="prometheus-slurm-exporter-${VERSION}-${GOOS}_${GOARCH}"
+    - run: |
+        VERSION=$(git describe --tags --always)
+        GOOS=$(go env GOOS)
+        GOARCH=$(go env GOARCH)
+        ARTIFACT_NAME="prometheus-slurm-exporter-${VERSION}-${GOOS}_${GOARCH}"
+        echo "ARTIFACT_NAME=$(echo $ARTIFACT_NAME)" >> $GITHUB_ENV
     - uses: actions/upload-artifact@v3
       with:
         name: ${{ env.ARTIFACT_NAME }}
