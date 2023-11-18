@@ -38,6 +38,7 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "${{ env.ARTIFACT_NAME }}"
+        allowUpdates: true
 
     # - uses: actions/create-release@v1
     #   id: create_release
