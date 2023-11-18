@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-tags: true
+        fetch-depth: 0
     - uses: actions/setup-python@v3
     - uses: actions/setup-go@v4
     - run: pip install psutil requests
